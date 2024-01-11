@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title><%= locals.title %></title> <!--Getting content from the routes -->
+    <meta name="description" content="<%= locals.description %>">
 </head>
 <body>
-    <!--Getting content from the views/index.ejs -->
+    <!--Getting content from the views -->
     <%- body %>         
 
 </body>
