@@ -1,14 +1,25 @@
 const express = require('express');
 const router = express.Router();
+const Post = require('../models/Post');
 
+// GET / HOME
 // ROUTES
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     const locals = {
         title: 'Node Js Blog',
         description: 'Simple blog created with'
     }
-    res.render('index');
+    // Gonna display the database content in the website
+    try {
+        const data = await Post.find();
+        res.render('index', { locals, data });
+    } 
+    
+    catch (error) {
+        console.log(error)
+    }
 });
+
 
 router.get('/about', (req, res) => {
     res.render('about');
