@@ -4,6 +4,39 @@ const Post = require('../models/Post');
 
 // GET / HOME
 // ROUTES
+// router.get('', async (req, res) => {
+//     try {
+//       const locals = {
+//         title: "NodeJs Blog",
+//         description: "Simple Blog created with NodeJs, Express & MongoDb."
+//       }
+
+//       // Pagination
+//       let perPage = 8;
+//       let page = req.query.page || 5;
+  
+//       const data = await Post.aggregate([ { $sort: { createdAt: -1 } } ])
+//       .skip(perPage * page - perPage)
+//       .limit(perPage)
+//       .exec();
+  
+//       const count = await Post.countDocuments({});
+//       const nextPage = parseInt(page) + 1;
+//       const hasNextPage = nextPage <= Math.ceil(count / perPage);
+  
+//       res.render('index', { 
+//         locals,
+//         data,
+//         current: page,
+//         nextPage: hasNextPage ? nextPage : null,
+//       });
+  
+//     } catch (error) {
+//       console.log(error);
+//     }
+  
+//   });
+  
 router.get('/', async (req, res) => {
     const locals = {
         title: 'Node Js Blog',
