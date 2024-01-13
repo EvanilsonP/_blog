@@ -10,14 +10,19 @@
     <h2 class="articles__heading">Latest Posts</h2>
 
     <ul class="article-ul">
+        <!--Gonna display the database content in the website-->
 
+        <!--Grabbing content from database-->
+        <% data.forEach(post => { %> <!--data is named after 'data' over the routes file-->
+         
         <li>
             <a href="#">
-                <span>Post Title</span>
-                <span class="article-list__date">Date</span>
+                <span><%= post.title %></span>
+                <span class="article-list__date"><%= post.createdAt %></span>
             </a>
         </li>
 
+        <% }) %>
     </ul>
 
     <a href="#" class="pagination">View older Posts</a>
