@@ -16,9 +16,9 @@
         <% data.forEach(post => { %> <!--data is named after 'data' over the routes file-->
          
         <li>
-            <a href="#">
+            <a href="/post/<%= post._id %>"> <!--Grabbing ID from each post-->
                 <span><%= post.title %></span>
-                <span class="article-list__date"><%= post.createdAt %></span>
+                <span class="article-list__date"><%= post.createdAt.toDateString() %></span>
             </a>
         </li>
 
