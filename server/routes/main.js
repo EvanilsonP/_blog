@@ -53,6 +53,26 @@ router.get('/', async (req, res) => {
     }
 });
 
+// GET / POST :ID
+router.get('/post:id', async (req, res) => {
+    try {
+        
+        const locals = {
+            title: 'Node Js Blog',
+            description: 'Simple blog created with'
+        }
+
+        let slug = req.params.id;
+        const data = await Post.findById({ _id: slug });
+        res.render('post', { locals, data });
+    } 
+    
+    catch (error) {
+        console.log(error)
+    }
+});
+
+
 
 router.get('/about', (req, res) => {
     res.render('about');
