@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const Post = require('../models/Post');
 
+
+const AdminLayout = '../views/layouts/admin';
+
 // GET / ADMIN LOG PAGE
 router.get('/admin', (req, res) => {
     try {
@@ -10,7 +13,7 @@ router.get('/admin', (req, res) => {
             description: 'Simple blog'
         };
 
-        res.render('admin', { locals, data });
+        res.render('admin/index', { locals, layout: AdminLayout });
     } 
 
     catch (error) {
