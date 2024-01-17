@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const AdminLayout = '../views/layouts/admin';
+const jwtSecret = process.env.JWT_SECRET;
 
 // GET / ADMIN LOG PAGE
 router.get('/admin', (req, res) => {
@@ -45,4 +46,33 @@ router.post('/register', async (req, res) => {
       console.log(error);
     }
   });
+
+
+// POST / ADMIN LOGIN
+router.post('/admin', async(req, res) => {
+  try {
+    const { username, password } = req.body;
+    const user = await User.findOne({ username });
+
+    if(!user) {
+      return res.status(401).json({ message: 'The user does not exist.' });
+    };
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    if(!isPasswordValid) {
+      return res.status(401).json({ message: 'Invalid password.' });
+    };
+
+    // Saving token to the cookie
+    const token = jwt.sign({ userId: user._id, jwtSecret});
+    res.cookie('token', token, { httpOnly: true });
+    res.redirect('/dashboard');
+  } 
+
+  catch (error) {
+    console.log(error);
+  }
+});
+
 module.exports = router;
