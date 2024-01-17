@@ -49,30 +49,34 @@ router.post('/register', async (req, res) => {
 
 
 // POST / ADMIN LOGIN
-router.post('/admin', async(req, res) => {
+router.post('/admin', async (req, res) => {
   try {
     const { username, password } = req.body;
-    const user = await User.findOne({ username });
+    
+    const user = await User.findOne( { username } );
 
     if(!user) {
-      return res.status(401).json({ message: 'The user does not exist.' });
-    };
+      return res.status(401).json( { message: 'Invalid user' } );
+    }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if(!isPasswordValid) {
-      return res.status(401).json({ message: 'Invalid password.' });
-    };
-
+      return res.status(401).json( { message: 'Invalid password' } );
+    }
     // Saving token to the cookie
-    const token = jwt.sign({ userId: user._id, jwtSecret});
+    const token = jwt.sign({ userId: user._id}, jwtSecret );
     res.cookie('token', token, { httpOnly: true });
     res.redirect('/dashboard');
-  } 
 
-  catch (error) {
+  } catch (error) {
     console.log(error);
   }
+});
+
+// GET / CHECK LOGIN
+router.get('/dashboard', (req, res) => {
+  res.render('admin/dashboard');
 });
 
 module.exports = router;
