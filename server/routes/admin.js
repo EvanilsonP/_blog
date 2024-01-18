@@ -100,7 +100,8 @@ router.get('/dashboard', authMiddleware, async(req, res) => {
   try {
     const locals = { 
       title: 'Dashboard', 
-      description: 'Simple blog created with node js'
+      description: 'Simple blog created with node js',
+      layout: AdminLayout
     };
 
     const data = await Post.find();
@@ -111,5 +112,9 @@ router.get('/dashboard', authMiddleware, async(req, res) => {
     console.log(error);
   }
 });
+
+// GET - ADMIN CREATE A NEW POST
+
+
 
 module.exports = router;
